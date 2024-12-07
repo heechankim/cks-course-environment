@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Source: http://kubernetes.io/docs/getting-started-guides/kubeadm
 
@@ -65,7 +65,8 @@ systemctl daemon-reload
 echo "deb [signed-by=/usr/share/keyrings/libcontainers-archive-keyring.gpg] http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/ /" | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:testing.list
 curl -fsSL "http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_${VERSION_ID}/Release.key" | gpg --dearmor -o /usr/share/keyrings/libcontainers-archive-keyring.gpg
 apt-get update -qq
-dpkg --force-all -i /var/cache/apt/archives/containers-common_100%3a1-22_all.deb
+apt-get -qq -y install podman cri-tools containers-common || true
+dpkg --force-all -i /var/cache/apt/archives/containers-common*.deb
 apt-get -qq -y install podman cri-tools containers-common
 rm /etc/apt/sources.list.d/devel:kubic:libcontainers:testing.list
 cat <<EOF | sudo tee /etc/containers/registries.conf
