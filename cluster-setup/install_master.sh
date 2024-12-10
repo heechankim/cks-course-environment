@@ -17,6 +17,12 @@ if [ "$DISTRIB_RELEASE" != "22.04" ]; then
     read
 fi
 
+wget https://go.dev/dl/go1.23.4.linux-amd64.tar.gz
+rm -rf /usr/local/go && tar -C /usr/local -xzf go1.23.4.linux-amd64.tar.gz
+rm go1.23.4.linux-amd64.tar.gz
+export PATH=$PATH:/usr/local/go/bin
+go version
+
 KUBE_VERSION=1.31.1
 
 # get platform
@@ -62,7 +68,7 @@ systemctl daemon-reload
 
 ### install packages
 mkdir -p /etc/apt/keyrings
-apt-get install -y apt-transport-https ca-certificates curl gpg golang-go
+apt-get install -y apt-transport-https ca-certificates curl gpg
 curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.31/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.31/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 apt-get --allow-unauthenticated update
