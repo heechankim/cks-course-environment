@@ -13,8 +13,8 @@ rm go1.23.4.linux-amd64.tar.gz
 export PATH=$PATH:/usr/local/go/bin
 go version
 
-BASE_VERSION=1.32
-KUBE_VERSION=1.32.3
+BASE_VERSION=1.33
+KUBE_VERSION=1.33.5
 
 # get platform
 PLATFORM=`uname -p`
@@ -69,12 +69,11 @@ apt-mark hold kubelet kubeadm kubectl kubernetes-cni
 apt-get -y install podman
 
 ### install cri-tools
-VERSION="v1.32.0"
+VERSION="v1.33.0"
 wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/crictl-$VERSION-linux-amd64.tar.gz
 sudo tar zxvf crictl-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
 rm -f crictl-$VERSION-linux-amd64.tar.gz
 
-VERSION="v1.32.0"
 wget https://github.com/kubernetes-sigs/cri-tools/releases/download/$VERSION/critest-$VERSION-linux-amd64.tar.gz
 sudo tar zxvf critest-$VERSION-linux-amd64.tar.gz -C /usr/local/bin
 rm -f critest-$VERSION-linux-amd64.tar.gz
